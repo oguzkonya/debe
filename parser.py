@@ -1,12 +1,15 @@
 from bs4 import BeautifulSoup as bs
+from datetime import datetime
+from entry import Entry
 from debe import Debe
 from filter import Filter
+from entryprinter import Printer
 import requests
-
 
 TIMEOUT = 5
 BASE_URL = "https://eksisozluk.com"
-URL = BASE_URL + "/debe"
+DEBE = BASE_URL + "/debe"
+BIRI = BASE_URL + "/biri"
 HEADERS = {
     'User-Agent': (
         'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) '
@@ -33,40 +36,62 @@ def fetch(url):
     return result
 
 def parseDebeList(filter):
-    bs = fetch(URL)
+    printer = Printer()
+    bs = fetch(DEBE)
     debeList = []
 
     if bs is not None:
         try:
             entries = bs.find(id="content-body").find_all("li")
+            html = ""
 
             for entry in entries:
                 debe = Debe()
                 debe.link = entry.a["href"]
+                debe.id = debe.link.replace("/entry/", "")
                 debe.title = entry.a.span.string
                 
                 if filter.filterTitle(debe):
                     debeList.append(debe)
 
-            for debe in debeList:
-                parseEntry(debe)
+            nextDebe = None
+            l = len(debeList)
+            for i, debe in enumerate(debeList):
+                if i < (l - 1):
+                    nextDebe = debeList[i + 1]
+                html += parseEntry(debe, nextDebe, printer)
 
+            write(printer, html)
+            
         except Exception as e:
             print(e)
 
-def parseEntry(debe):
+def parseEntry(debe, nextDebe, printer):
     bs = fetch(BASE_URL + debe.link)
 
     if bs is not None:
         try:
-            contents = bs.find("div", {"class": "content"}).decode_contents()
-            date = bs.find("a", {"class": "entry-date"}).text
-            author = bs.find("a", {"class": "entry-author"}).text
+            entry = Entry()
+            entry.id = debe.id
+            entry.nextId = nextDebe.id
+            entry.title = debe.title
+            entry.link = BASE_URL + debe.link
+            entry.date = bs.find("a", {"class": "entry-date"}).text
+            entry.author = bs.find("a", {"class": "entry-author"}).text
+            entry.authorLink = BIRI + "/" + entry.author.replace(" ", "-")
+            entry.content = bs.find("div", {"class": "content"}).decode_contents().replace('href="/?q=', 'href="' + BASE_URL + '/?q=')
 
-            # TODO: Put these in an html file
+            return printer.printEntry(entry)
 
         except Exception as e:
             print(e)
+
+def write(printer, html):
+    contents = printer.printIndex(html, datetime.now().strftime("%d/%m/%Y"))
+
+    g = open("index.html", "w")
+    g.write(contents)
+    g.close()
 
 if __name__ == "__main__":
     f = Filter("filter.txt")
