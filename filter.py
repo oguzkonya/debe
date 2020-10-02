@@ -1,3 +1,5 @@
+import re
+
 class Filter():
 
     def __init__(self, filename):
@@ -10,7 +12,7 @@ class Filter():
 
     def filterTitle(self, debe):
         for f in self.filteredTitles:
-            if debe.title == f:
+            if re.match(r"%s" % f, debe.title) is not None:
                 return False
         
         return True

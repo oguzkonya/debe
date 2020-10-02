@@ -1,3 +1,4 @@
+\d+ \D+ \d+ .+ maçı$
 ozan tufan
 müge anlı ile tatlı sert
 hasan cihat örter
