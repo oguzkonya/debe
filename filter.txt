@@ -1,12 +1,10 @@
 \d+ \D+ \d+ .+ maçı$
-ozan tufan
+.+ \(dizi\)
 müge anlı ile tatlı sert
 hasan cihat örter
 kaan kural
 yaran fıkralar
 yasak elma
-atiye (dizi)
-kırmızı oda (dizi)
 masterchef türkiye
 fenerbahçe
 galatasaray
@@ -14,3 +12,13 @@ beşiktaş
 trabzonspor
 masumlar apartmanı
 yaprak dökümü
+shaquille o'neal
+lebron james
+kobe bryant
+fatih terim
+aykut kocaman
+arda turan
+ozan tufan
+intermittent fasting
+metallica
+almanca
