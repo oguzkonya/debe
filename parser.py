@@ -79,7 +79,7 @@ def parseEntry(debe, nextDebe, printer):
             entry.date = bs.find("a", {"class": "entry-date"}).text
             entry.author = bs.find("a", {"class": "entry-author"}).text
             entry.authorLink = BIRI + "/" + entry.author.replace(" ", "-")
-            entry.content = bs.find("div", {"class": "content"}).decode_contents().replace('href="/?q=', 'href="' + BASE_URL + '/?q=')
+            entry.content = bs.find("div", {"class": "content"}).decode_contents().replace('href="/?q=', 'href="' + BASE_URL + '/?q=').replace('href="/entry', 'href="' + BASE_URL + '/entry')
 
             return printer.printEntry(entry)
 
