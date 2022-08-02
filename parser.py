@@ -4,7 +4,6 @@ from debe import Debe
 from entry import Entry
 from entryprinter import Printer
 from filter import Filter
-from selenium import webdriver
 import requests
 
 
