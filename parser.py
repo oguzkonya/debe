@@ -1,10 +1,12 @@
 from bs4 import BeautifulSoup as bs
 from datetime import datetime
-from entry import Entry
 from debe import Debe
-from filter import Filter
+from entry import Entry
 from entryprinter import Printer
+from filter import Filter
+from selenium import webdriver
 import requests
+
 
 TIMEOUT = 5
 BASE_URL = "https://eksisozluk.com"
@@ -21,7 +23,11 @@ def fetch(url):
     result = None
 
     try:
-        response = requests.get(url, timeout=TIMEOUT, headers = HEADERS)
+        # browser = webdriver.Firefox()
+        # browser.get(url)
+        # html = browser.page_source
+        # result = bs(html, features="html.parser")
+        response = requests.get(url, timeout = (5, 10), headers = HEADERS)
         response.raise_for_status()
         result = bs(response.content, from_encoding=response.encoding, features="html.parser")
     except requests.exceptions.HTTPError as errh:
@@ -42,7 +48,7 @@ def parseDebeList(filter):
 
     if bs is not None:
         try:
-            entries = bs.find(id="content-body").find_all("li")
+            entries = bs.find(id="partial-index").find_all("li")
             html = ""
 
             for entry in entries:
