@@ -18,6 +18,7 @@ class Printer():
             .replace("{next}", entry.nextId)\
             .replace("{title}", entry.title)\
             .replace("{date}", entry.date)\
+            .replace("{words}", entry.wordCount)\
             .replace("{authorlink}", entry.authorLink)\
             .replace("{author}", entry.author)\
             .replace("{link}", entry.link)\
