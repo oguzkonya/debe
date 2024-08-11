@@ -33,14 +33,16 @@ def fetch(url):
         req = Request(url, headers = HEADERS)
         webpage = urlopen(req).read()
         result = bs(webpage, from_encoding=response.encoding, features="html.parser")
-    except requests.exceptions.HTTPError as errh:
-        print ("Http Error:", errh)
-    except requests.exceptions.ConnectionError as errc:
-        print ("Connection Error:", errc)
-    except requests.exceptions.Timeout as errt:
-        print ("Timeout Error:", errt)
-    except requests.exceptions.RequestException as err:
-        print ("Error: ", err)
+    # except requests.exceptions.HTTPError as errh:
+    #     print ("Http Error:", errh)
+    # except requests.exceptions.ConnectionError as errc:
+    #     print ("Connection Error:", errc)
+    # except requests.exceptions.Timeout as errt:
+    #     print ("Timeout Error:", errt)
+    # except requests.exceptions.RequestException as err:
+    #     print ("Error: ", err)
+    except Exception as e:
+        print ("Error: ", e)
 
     return result
 
