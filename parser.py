@@ -91,7 +91,7 @@ def parseEntry(debe, nextDebe, printer):
             entry.author = bs.find("a", {"class": "entry-author"}).text
             entry.authorLink = BIRI + "/" + entry.author.replace(" ", "-")
             entry.content = bs.find("div", {"class": "content"}).decode_contents().replace('href="/?q=', 'href="' + BASE_URL + '/?q=').replace('href="/entry', 'href="' + BASE_URL + '/entry')
-            entry.wordCount = len(entry.content.split())
+            entry.wordCount = str(len(entry.content.split()))
             return printer.printEntry(entry)
 
         except Exception as e:
