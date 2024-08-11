@@ -32,7 +32,7 @@ def fetch(url):
         ## result = bs(response.content, from_encoding=response.encoding, features="html.parser")
         req = Request(url, headers = HEADERS)
         webpage = urlopen(req).read()
-        result = bs(webpage, from_encoding=response.encoding, features="html.parser")
+        result = bs(webpage, features="html.parser")
     # except requests.exceptions.HTTPError as errh:
     #     print ("Http Error:", errh)
     # except requests.exceptions.ConnectionError as errc:
