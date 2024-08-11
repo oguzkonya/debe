@@ -13,7 +13,7 @@ DEBE = BASE_URL + "/debe"
 BIRI = BASE_URL + "/biri"
 HEADERS = {
     'User-Agent': (
-        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) '
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0 '
         'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'
     )
 }
