@@ -4,7 +4,8 @@ from debe import Debe
 from entry import Entry
 from entryprinter import Printer
 from filter import Filter
-import requests
+from urllib.request import Request, urlopen
+# import requests
 
 
 TIMEOUT = 5
@@ -26,9 +27,12 @@ def fetch(url):
         # browser.get(url)
         # html = browser.page_source
         # result = bs(html, features="html.parser")
-        response = requests.get(url, timeout = (5, 10), headers = HEADERS)
-        response.raise_for_status()
-        result = bs(response.content, from_encoding=response.encoding, features="html.parser")
+        ## response = requests.get(url, timeout = (5, 10), headers = HEADERS)
+        ## response.raise_for_status()
+        ## result = bs(response.content, from_encoding=response.encoding, features="html.parser")
+        req = Request(url, headers = HEADERS)
+        webpage = urlopen(req).read()
+        result = bs(webpage, from_encoding=response.encoding, features="html.parser")
     except requests.exceptions.HTTPError as errh:
         print ("Http Error:", errh)
     except requests.exceptions.ConnectionError as errc:
