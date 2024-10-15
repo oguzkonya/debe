@@ -5,6 +5,7 @@ from entry import Entry
 from entryprinter import Printer
 from filter import Filter
 from urllib.request import Request, urlopen
+from selenium import webdriver
 # import requests
 
 
@@ -23,16 +24,16 @@ def fetch(url):
     result = None
 
     try:
-        # browser = webdriver.Firefox()
-        # browser.get(url)
-        # html = browser.page_source
-        # result = bs(html, features="html.parser")
-        ## response = requests.get(url, timeout = (5, 10), headers = HEADERS)
-        ## response.raise_for_status()
-        ## result = bs(response.content, from_encoding=response.encoding, features="html.parser")
-        req = Request(url, headers = HEADERS)
-        webpage = urlopen(req).read()
-        result = bs(webpage, features="html.parser")
+        browser = webdriver.Firefox()
+        browser.get(url)
+        html = browser.page_source
+        result = bs(html, features="html.parser")
+        # response = requests.get(url, timeout = (5, 10), headers = HEADERS)
+        # response.raise_for_status()
+        # result = bs(response.content, from_encoding=response.encoding, features="html.parser")
+        # req = Request(url, headers = HEADERS)
+        # webpage = urlopen(req).read()
+        # result = bs(webpage, features="html.parser")
     # except requests.exceptions.HTTPError as errh:
     #     print ("Http Error:", errh)
     # except requests.exceptions.ConnectionError as errc:
@@ -107,3 +108,4 @@ def write(printer, html):
 if __name__ == "__main__":
     f = Filter("filter.txt")
     parseDebeList(f)
+ # type: ignore
